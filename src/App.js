@@ -1,26 +1,16 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom/cjs/react-router-dom.min';
 import './App.css';
-import logo from './logo.svg';
-import Search from './Search';
+import Cart from './pages/Cart';
+import Search from './pages/Search';
 
 function App() {
   return (
     <main>
-      <Search />
-      <div className="App">
-        <header className="App-header">
-          <img src={ logo } className="App-logo" alt="logo" />
-          <p>Edit src/App.js and save to reload.</p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Switch>
+        <Route exact path="/" component={ Search } />
+        <Route exact path="/cart" component={ Cart } />
+      </Switch>
     </main>
   );
 }
