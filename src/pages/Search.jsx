@@ -26,6 +26,8 @@ export default class Search extends Component {
     });
   };
 
+  // Funçã relacionada ao click do botão
+
   handleSearchClick = async () => {
     const { categoryId, inputSearch } = this.state;
     const getApi = await getProductsFromCategoryAndQuery(categoryId, inputSearch);
