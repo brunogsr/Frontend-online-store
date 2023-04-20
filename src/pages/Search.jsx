@@ -36,6 +36,8 @@ export default class Search extends Component {
     });
   };
 
+  // Modifiquei o nome dessa função para não confundir com o estado
+
   goToShoppingCart = () => {
     const { history } = this.props;
     history.push('/cart');
