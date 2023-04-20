@@ -114,6 +114,18 @@ export default class Search extends Component {
   }
 }
 
+// Search.propTypes = {
+//   history: PropTypes.shape({
+//     push: PropTypes.func,
+//     id: PropTypes.string,
+//   }),
+//   push: PropTypes.func,
+//   match: PropTypes.shape({
+//     params: PropTypes.shape({
+//     }).isRequired,
+//   }),
+// };
+
 Search.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
