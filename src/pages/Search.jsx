@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 
 export default class Search extends Component {
@@ -25,6 +26,14 @@ export default class Search extends Component {
       [name]: value,
     });
   };
+
+  // poggers = async (event) => {
+  //   const { productsResults } = this.state;
+  //   console.log(productsResults);
+  //   // const carrinhoList = document.querySelector('.cart__products');
+  //   // const { history } = this.props;
+  //   // history.push('/cardproduct');
+  // };
 
   // Funçã relacionada ao click do botão
 
@@ -102,11 +111,17 @@ export default class Search extends Component {
             <div>
 
               {productsResults.map((product, index) => (
-                <div key={ index }>
-                  <p data-testid="product">{ product.title }</p>
-                  <p>{ product.price }</p>
-                  <img src={ product.thumbnail } alt={ product.title } />
-                </div>
+                <label key={ index } htmlFor="cardClick">
+
+                  <Link
+                    data-testid="product-detail-link"
+                    to={ `cardproduct/${product.id}` }
+                  >
+                    <p data-testid="product">{ product.title }</p>
+                    <p>{ product.price }</p>
+                    <img src={ product.thumbnail } alt={ product.title } />
+                  </Link>
+                </label>
               ))}
             </div>)}
       </div>
