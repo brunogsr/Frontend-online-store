@@ -1,10 +1,21 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { getCategories } from '../services/api';
 
 export default class Search extends Component {
   state = {
     inputSearch: '',
+    categoriesList: [],
   };
+
+  async componentDidMount() {
+    const { match: { params: { id } } } = this.props;
+    const categoriesList = await getCategories(id);
+
+    this.setState({
+      categoriesList,
+    });
+  }
 
   onSearchButtonClick = () => {
     const { history } = this.props;
@@ -12,7 +23,10 @@ export default class Search extends Component {
   };
 
   render() {
-    const { inputSearch } = this.state;
+    const {
+      inputSearch,
+      categoriesList,
+    } = this.state;
     return (
       <div>
         <input
@@ -29,6 +43,24 @@ export default class Search extends Component {
         >
           Cart Button
         </button>
+        <div>
+          {
+            categoriesList.map((category, index) => (
+              <label
+                htmlFor={ category.id }
+                key={ index }
+                data-testid="category"
+              >
+                { category.name }
+                <input
+                  id="categoria"
+                  type="radio"
+                  { ...category }
+                />
+              </label>
+            ))
+          }
+        </div>
       </div>
     );
   }
@@ -36,6 +68,11 @@ export default class Search extends Component {
 
 Search.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func,
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        push: PropTypes.func,
+        id: PropTypes.string,
+      }),
+    }),
   }).isRequired,
 };
