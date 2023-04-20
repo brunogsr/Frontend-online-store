@@ -89,6 +89,7 @@ export default class Search extends Component {
                   name="categoryId"
                   value={ category.id }
                   onChange={ this.onChange }
+                  onClick={ this.handleSearchClick }
 
                 />
               </label>
