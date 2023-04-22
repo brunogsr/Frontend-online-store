@@ -2,33 +2,33 @@ import React from 'react';
 
 class Cart extends React.Component {
   state = {
-    productName: '',
-    productQuantidade: '',
+    arrayProductsCart: [],
   };
 
   async componentDidMount() {
     const arrayProductsCart = JSON.parse(localStorage.getItem('arrayProductsCart')) || [];
     this.setState({
-      productName: arrayProductsCart[0].title,
-      productQuantidade: arrayProductsCart[0].quantidade,
+      arrayProductsCart,
     });
   }
 
   render() {
-    const { productName, productQuantidade } = this.state;
+    const { arrayProductsCart } = this.state;
     return (
       <div>
-        { productQuantidade > 0
+        { arrayProductsCart.length > 0
           ? (
-            <div>
-              <p data-testid="shopping-cart-product-name">{ productName }</p>
-              <br />
-              <p data-testid="shopping-cart-product-quantity">
-                Quantidade:
-                { productQuantidade }
-              </p>
+            arrayProductsCart.map(({ title, quantidade }, index) => (
+              <div key={ index }>
+                <p data-testid="shopping-cart-product-name">{ title }</p>
+                <br />
+                <p data-testid="shopping-cart-product-quantity">
+                  Quantidade:
+                  { quantidade }
+                </p>
 
-            </div>)
+              </div>))
+          )
           : (
             <h1
               data-testid="shopping-cart-empty-message"
