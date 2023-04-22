@@ -12,7 +12,7 @@ class Cart extends React.Component {
     });
   }
 
-  dispatchCartUpdateEvent = () => {
+  dispatchUpdateEvent = () => {
     const cartUpdateEvent = new Event('cartUpdate');
     window.dispatchEvent(cartUpdateEvent);
   };
@@ -26,7 +26,7 @@ class Cart extends React.Component {
       product.quantidade += action === 'decrease' ? DECREMENT : 1;
       localStorage.setItem('arrayProductsCart', JSON.stringify(arrayProductsCart));
       this.setState({ arrayProductsCart });
-      this.dispatchCartUpdateEvent();
+      this.dispatchUpdateEvent();
     }
   };
 
