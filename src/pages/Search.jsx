@@ -27,13 +27,20 @@ export default class Search extends Component {
     });
   };
 
-  // poggers = async (event) => {
-  //   const { productsResults } = this.state;
-  //   console.log(productsResults);
-  //   // const carrinhoList = document.querySelector('.cart__products');
-  //   // const { history } = this.props;
-  //   // history.push('/cardproduct');
-  // };
+  addProductInCart = (productDetails) => {
+    // TESTE DE SALVAR O PRODUTO NO CARRINHO
+    // ARRAY DE PRODUTOS DO CARRINHO SE CHAMARÁ: arrayProductsCart
+    const arrayProductsCart = JSON.parse(localStorage.getItem('arrayProductsCart')) || [];
+    let product = arrayProductsCart.find(({ id }) => id === productDetails.id);
+    if (product) {
+      product.quantidade += 1;
+    } else {
+      product = productDetails;
+      product.quantidade = 1;
+      arrayProductsCart.push(product);
+    }
+    localStorage.setItem('arrayProductsCart', JSON.stringify(arrayProductsCart));
+  };
 
   // Funçã relacionada ao click do botão
 
@@ -121,6 +128,13 @@ export default class Search extends Component {
                     <p>{ product.price }</p>
                     <img src={ product.thumbnail } alt={ product.title } />
                   </Link>
+                  <button
+                    data-testid="product-add-to-cart"
+                    onClick={ () => { this.addProductInCart(product); } }
+                  >
+                    Adicionar ao Carrinho
+                  </button>
+
                 </label>
               ))}
             </div>)}

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { getProductById } from '../services/api';
 
 export default class CardProduct extends Component {
@@ -21,6 +22,22 @@ export default class CardProduct extends Component {
     });
   };
 
+  addProductInCart = () => {
+    // TESTE DE SALVAR O PRODUTO NO CARRINHO
+    // ARRAY DE PRODUTOS DO CARRINHO SE CHAMARÁ: arrayProductsCart
+    const { productDetails } = this.state;
+    const arrayProductsCart = JSON.parse(localStorage.getItem('arrayProductsCart')) || [];
+    let product = arrayProductsCart.find(({ id }) => id === productDetails.id);
+    if (product) {
+      product.quantidade += 1;
+    } else {
+      product = productDetails;
+      product.quantidade = 1;
+      arrayProductsCart.push(product);
+    }
+    localStorage.setItem('arrayProductsCart', JSON.stringify(arrayProductsCart));
+  };
+
   render() {
     const { productDetails } = this.state;
     const { title, thumbnail, attributes = [], price } = productDetails;
@@ -35,6 +52,18 @@ export default class CardProduct extends Component {
               { `${name}: ${valueName}`}
             </p>))
         }
+
+        <button
+          data-testid="product-detail-add-to-cart"
+          onClick={ this.addProductInCart }
+        >
+          Adicionar o Carrinho
+
+        </button>
+
+        <Link to="/cart" data-testid="shopping-cart-button">
+          <button>Ir Para o Carrinho</button>
+        </Link>
       </div>
     );
   }
